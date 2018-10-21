@@ -9,4 +9,10 @@ services:
     ports:
       - "8080:80"
 
-#  nginx:
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
+    image: hls-nginx:latest
+    ports:
+      - "8090:80"
