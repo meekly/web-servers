@@ -16,3 +16,11 @@ services:
     image: hls-nginx:latest
     ports:
       - "8090:80"
+
+  both:
+    build:
+      context: .
+      dockerfile: dockerfiles/ng_apache.dockerfile
+    image: hls-ng-ap:latest
+    ports:
+      - "8080:80"

@@ -18,3 +18,7 @@ RUN sed -i -E 's|^.*sites-enabled.*$||' /etc/apache2/apache2.conf
 ADD apache.conf /etc/apache2/conf-enabled/my.conf
 
 RUN htpasswd -cb /etc/apache2/.htpasswd admin admin
+
+EXPOSE 80
+
+CMD service apache2 start && tail -f /var/log/apache2/access.log
