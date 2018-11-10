@@ -7,7 +7,9 @@ services:
       dockerfile: dockerfiles/apache.dockerfile
     image: hls-apache:latest
     ports:
-      - "8080:80"
+      - "3000:80"
+    links:
+      - nginx
 
   nginx:
     build:
@@ -16,11 +18,30 @@ services:
     image: hls-nginx:latest
     ports:
       - "8090:80"
+    expose:
+      - "3000"
 
-  both:
+  # both:
+  #   build:
+  #     context: .
+  #     dockerfile: dockerfiles/ng_apache.dockerfile
+  #   image: hls-ng-ap:latest
+  #   ports:
+  #     - "8080:80"
+
+  mysql:
     build:
       context: .
-      dockerfile: dockerfiles/ng_apache.dockerfile
-    image: hls-ng-ap:latest
-    ports:
-      - "8080:80"
+      dockerfile: dockerfiles/mysql.dockerfile
+    image: hls-mysql:latest
+    depends_on:
+      - nginx
+      - apache
+
+  phpim:
+    build:
+      context: .
+      dockerfile: dockerfiles/php_im.dockerfile
+    image: hls-phpim:latest
+    depends_on:
+      - mysql

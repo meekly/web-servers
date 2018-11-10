@@ -11,7 +11,8 @@ RUN mkdir -p /var/www/cache
 RUN htpasswd -cb /etc/nginx/.htpasswd admin admin
 
 COPY nginx.conf /etc/nginx/nginx.conf
-ADD default.conf /etc/nginx/conf.d/defaul.conf
+#ADD default.conf /etc/nginx/conf.d/defaul.conf
+ADD na_nginx.conf /etc/nginx/conf.d/defaul.conf
 ADD index.php /var/www/index.php
 COPY php-fpm.conf /etc/php-fpm.d/www.conf
 
